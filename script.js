@@ -1,22 +1,22 @@
-const inputBox = document.getElementById("input-box");
-const listContainer = document.getElementById("list-container");
+const taskInput = document.getElementById("input-box");
+const taskListContainer = document.getElementById("list-container");
 
 function addTask() {
-  if (inputBox.value === "") {
+  if (taskInput.value === "") {
     alert("Please enter a task!");
   } else {
-    let li = document.createElement("li");
-    li.innerHTML = inputBox.value;
-    listContainer.appendChild(li);
-    let span = document.createElement("span");
-    span.innerHTML = "\u00d7";
-    li.appendChild(span);
+    let taskListItem = document.createElement("li");
+    taskListItem.innerHTML = taskInput.value;
+    taskListContainer.appendChild(taskListItem);
+    let deleteButton = document.createElement("span");
+    deleteButton.innerHTML = "\u00d7";
+    taskListItem.appendChild(deleteButton);
   }
-  inputBox.value = "";
+  taskInput.value = "";
   saveData();
 }
 
-listContainer.addEventListener("click", function(e) {
+taskListContainer.addEventListener("click", function (e) {
   if (e.target.tagName === "LI") {
     e.target.classList.toggle("checked");
     saveData();
@@ -26,11 +26,11 @@ listContainer.addEventListener("click", function(e) {
   }
 }, false);
 
-function saveData(){
-  localStorage.setItem("data", listContainer.innerHTML);
+function saveData() {
+  localStorage.setItem("data", taskListContainer.innerHTML);
 }
 
-function showTasks(){
-  listContainer.innerHTML = localStorage.getItem("data");
+function showTasks() {
+  taskListContainer.innerHTML = localStorage.getItem("data");
 }
 showTasks();
